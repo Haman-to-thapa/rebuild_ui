@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { gsap } from '../lib/gsap';
 import { testimonials } from "../data/ryzeData";
 
 const WallOfLove = () => {
@@ -23,13 +23,12 @@ const WallOfLove = () => {
         });
       }
 
-      cardsRef.current.forEach((card, index) => {
+      cardsRef.current.forEach((card) => {
         if (card) {
           gsap.from(card, {
             y: 50,
             opacity: 0,
             duration: 0.6,
-            delay: index * 0.1,
             scrollTrigger: {
               trigger: card,
               start: "top 85%",
@@ -119,9 +118,9 @@ const WallOfLove = () => {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((item, index) => (
+          {testimonials.map((item) => (
             <div
-              key={index}
+              key={`${item.name}-${item.platform}`}
               ref={addToRefs}
               className="group relative"
             >

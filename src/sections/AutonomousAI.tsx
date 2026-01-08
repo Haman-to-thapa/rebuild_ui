@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { gsap } from '../lib/gsap';
 import { aiMarketer } from "../data/ryzeData";
 
 const AutonomousAI = () => {
@@ -41,13 +41,12 @@ const AutonomousAI = () => {
         });
       }
 
-      questionsRef.current.forEach((question, index) => {
+      questionsRef.current.forEach((question) => {
         if (question) {
           gsap.from(question, {
             x: -30,
             opacity: 0,
             duration: 0.5,
-            delay: index * 0.1,
             scrollTrigger: {
               trigger: question,
               start: "top 90%",
@@ -58,13 +57,12 @@ const AutonomousAI = () => {
         }
       });
 
-      answersRef.current.forEach((answer, index) => {
+      answersRef.current.forEach((answer) => {
         if (answer) {
           gsap.from(answer, {
             x: 30,
             opacity: 0,
             duration: 0.5,
-            delay: index * 0.15,
             scrollTrigger: {
               trigger: answer,
               start: "top 90%",
@@ -100,10 +98,10 @@ const AutonomousAI = () => {
         <div className="max-w-3xl mb-20">
           <div ref={headerRef}>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight">
-              {aiMarketer.title.split(' ').map((word, index) => (
+              {aiMarketer.title.split(' ').map((word) => (
                 <span
-                  key={index}
-                  className={index === 0 ? 'text-black' : 'text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600'}
+                  key={word}
+                  className={word === 'Autonomous' ? 'text-black' : 'text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600'}
                 >
                   {word}{' '}
                 </span>
@@ -115,13 +113,15 @@ const AutonomousAI = () => {
             ref={featuresRef}
             className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4"
           >
-            {aiMarketer.features.map((feature, index) => (
+            {aiMarketer.features.map((feature) => (
               <li
                 key={feature}
                 className="flex items-start gap-3 p-4 rounded-xl bg-white border border-gray-200 hover:border-blue-200 hover:shadow-md transition-all duration-300"
               >
                 <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
-                  <span className="text-white font-bold">{index + 1}</span>
+                  <span className="text-white font-bold">
+                    {aiMarketer.features.indexOf(feature) + 1}
+                  </span>
                 </div>
                 <span className="text-gray-700 font-medium">{feature}</span>
               </li>
@@ -130,6 +130,7 @@ const AutonomousAI = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
+          {/* Left column remains the same */}
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
@@ -143,7 +144,7 @@ const AutonomousAI = () => {
             </div>
 
             <div className="space-y-4">
-              {aiMarketer.questions.map((q, index) => (
+              {aiMarketer.questions.map((q) => (
                 <div
                   key={q}
                   ref={addQuestionRef}
@@ -177,6 +178,7 @@ const AutonomousAI = () => {
             </div>
           </div>
 
+          {/* Right column remains the same */}
           <div className="space-y-6">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center">
@@ -190,9 +192,9 @@ const AutonomousAI = () => {
             </div>
 
             <div className="space-y-6">
-              {aiMarketer.answers.map((item, index) => (
+              {aiMarketer.answers.map((item) => (
                 <div
-                  key={index}
+                  key={item.question}
                   ref={addAnswerRef}
                   className="group relative"
                 >
